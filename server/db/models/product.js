@@ -17,7 +17,9 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
     defaultValue:
       'https://cdn.images.express.co.uk/img/dynamic/25/590x/crystal-plane-luxury-travel-715696.jpg',
-    unique: true
+    validate: {
+      isUrl: true
+    }
   },
   price: {
     type: Sequelize.FLOAT,
