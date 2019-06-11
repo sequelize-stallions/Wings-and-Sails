@@ -3,10 +3,42 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    notEmpty: true
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    notEmpty: true
+  },
+  fullName: {
+    type: Sequelize.VIRTUAL,
+    get() {
+      return (
+        this.getDataValue('firstName') + ' ' + this.getDataValue('lastName')
+      )
+    }
+  },
+  userName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    notEmpty: true,
+    unique: true
+  },
+  address: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    notEmpty: true
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
@@ -67,4 +99,10 @@ User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
+})
+
+User.hook('beforeCreate', (user, options) => {
+  user.firstName =
+    user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
+  user.lastName = user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)
 })
