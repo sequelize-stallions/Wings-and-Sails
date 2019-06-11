@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {thunkGetProducts} from '../store'
 
@@ -13,13 +14,19 @@ class AllProductsDisconnect extends Component {
           {this.props.products.map(product => {
             return (
               <div key={product.id}>
-                {/* <Link to={`/products/${product.id}`}><h3>{product.name}</h3></Link> */}
                 <hr />
-                <img
-                  src={product.imgUrl}
-                  style={{height: 200, width: 200}}
-                  alt={product.name}
-                />
+                <Link to={`/products/${product.id}`}>
+                  <h3>{product.name}</h3>
+                </Link>
+                <Link to={`/products/${product.id}`}>
+                  <img
+                    src={product.imgUrl}
+                    style={{height: 200, width: 200}}
+                    alt={product.name}
+                  />
+                </Link>
+                <h3>${product.price}</h3>
+                <h4>{product.description}</h4>
                 <hr />
               </div>
             )
