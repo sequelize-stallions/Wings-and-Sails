@@ -5,7 +5,8 @@ const Product = db.define('product', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-    notEmpty: true
+    notEmpty: true,
+    unique: true
   },
   description: {
     type: Sequelize.TEXT,
@@ -15,14 +16,15 @@ const Product = db.define('product', {
   imgUrl: {
     type: Sequelize.STRING,
     defaultValue:
-      'https://cdn.images.express.co.uk/img/dynamic/25/590x/crystal-plane-luxury-travel-715696.jpg'
+      'https://cdn.images.express.co.uk/img/dynamic/25/590x/crystal-plane-luxury-travel-715696.jpg',
+    unique: true
   },
   price: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     allowNull: false,
     notEmpty: true,
     validate: {
-      min: 0
+      min: 0.0
     }
   },
   stock: {
