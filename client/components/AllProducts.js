@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {} from '../reducers'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {thunkGetProducts} from '../store'
 
 class AllProductsDisconnect extends Component {
   componentDidMount() {
@@ -17,8 +17,8 @@ class AllProductsDisconnect extends Component {
                 {/* <Link to={`/products/${product.id}`}><h3>{product.name}</h3></Link> */}
                 <hr />
                 <img
-                  src={product.imageUrl}
-                  style={{height: 360, width: 460}}
+                  src={product.imgUrl}
+                  style={{height: 200, width: 200}}
                   alt={product.name}
                 />
                 <hr />
@@ -39,7 +39,7 @@ class AllProductsDisconnect extends Component {
 
 const mapState = state => {
   return {
-    products: state.products
+    products: state.allProductsReducer.products
   }
 }
 
@@ -49,4 +49,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatchToProps)(AllProductsDisconnect)
+export const AllProducts = connect(mapState, mapDispatchToProps)(
+  AllProductsDisconnect
+)
