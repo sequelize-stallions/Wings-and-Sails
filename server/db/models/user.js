@@ -3,10 +3,41 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    notEmpty: true
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    notEmpty: true
+  },
+  fullName: {
+    type: Sequelize.VIRTUAL,
+    get() {
+      return (
+        this.getDataValue('firstName') + ' ' + this.getDataValue('lastName')
+      )
+    }
+  },
+  userName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    notEmpty: true
+  },
+  address: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    notEmpty: true
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
