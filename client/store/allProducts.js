@@ -18,13 +18,14 @@ export const thunkGetProducts = () => {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/products')
+      dispatch(getAllProducts(data))
     } catch (err) {
       console.log('Thunk get products!', err)
     }
   }
 }
 
-export default function(state = initialProducts, action) {
+export const allProductsReducer = (state = initialProducts, action) => {
   switch (action.type) {
     case GET_PRODUCTS:
       return {
