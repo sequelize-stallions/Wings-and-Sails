@@ -1,10 +1,19 @@
 import React, {Component} from 'react'
-import {} from '../reducers'
+import {connect} from 'react-redux'
+import {thunkGetSingleProduct} from '../store'
 
 class SingleProductDisconnect extends Component {
+  componentDidMount() {
+    const {match, getSingleProduct} = this.props
+
+    getSingleProduct(match.params.id)
+  }
+
   render() {
+    const {product} = this.props
+
     return (
-      <div>
+      <div id="singleProduct">
         <h1>{product.name}</h1>
         <img src={product.imgUrl} alt={product.name} />
         <p>{product.description}</p>
@@ -15,3 +24,15 @@ class SingleProductDisconnect extends Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  product: state.products.selectedProduct
+})
+
+const mapDispatchToProps = dispatch => ({
+  getSingleProduct: id => dispatch(thunkGetSingleProduct(id))
+})
+
+export const SingleProduct = connect(mapStateToProps, mapDispatchToProps)(
+  SingleProductDisconnect
+)
