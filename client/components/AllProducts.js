@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {thunkGetProducts} from '../store'
 
 class AllProductsDisconnect extends Component {
@@ -39,7 +38,7 @@ class AllProductsDisconnect extends Component {
 
 const mapState = state => {
   return {
-    products: state.allProductsReducer.products
+    products: state.products.products
   }
 }
 
