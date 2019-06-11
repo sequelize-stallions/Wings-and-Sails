@@ -24,7 +24,8 @@ const User = db.define('user', {
   userName: {
     type: Sequelize.STRING,
     allowNull: false,
-    notEmpty: true
+    notEmpty: true,
+    unique: true
   },
   address: {
     type: Sequelize.STRING,
@@ -98,4 +99,10 @@ User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
+})
+
+User.hook('beforeCreate', (user, options) => {
+  user.firstName =
+    user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
+  user.lastName = user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)
 })
