@@ -101,8 +101,10 @@ User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
 
-User.hook('beforeCreate', (user, options) => {
-  user.firstName =
-    user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
-  user.lastName = user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)
+User.beforeCreate(user => {
+  const nameFirst = user.firstName
+  const nameLast = user.lastName
+
+  user.firstName = nameFirst[0].toUpperCase() + nameFirst.slice(1)
+  user.lastName = nameLast[0].toUpperCase() + nameLast.slice(1)
 })
