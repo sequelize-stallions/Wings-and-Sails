@@ -145,3 +145,5 @@ seed().catch(err => {
   console.error(err)
   db.close()
 })
+
+module.exports = seed
