@@ -1,18 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import Axios from 'axios'
 
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {email} = props
+export class UserHome extends React.Component {
+  async componentDidMount() {
+    try {
+      const data = await Axios.post('/api/carts')
+      // add to localStore
+      console.log(data)
+    } catch (error) {
+      console.log('ERROR!')
+    }
+  }
 
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
-  )
+  render() {
+    const {email} = this.props
+    return (
+      <div>
+        <h3>Welcome, {email}</h3>
+      </div>
+    )
+  }
 }
 
 /**

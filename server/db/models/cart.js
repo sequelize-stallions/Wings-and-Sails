@@ -8,7 +8,8 @@ const Cart = db.define('cart', {
     notEmpty: true,
     validate: {
       min: 0.0
-    }
+    },
+    defaultValue: 0.0
   },
   quantity: {
     type: Sequelize.INTEGER,
@@ -16,7 +17,8 @@ const Cart = db.define('cart', {
     notEmpty: true,
     validate: {
       min: 0
-    }
+    },
+    defaultValue: 0
   },
   orderStatus: {
     type: Sequelize.BOOLEAN,
