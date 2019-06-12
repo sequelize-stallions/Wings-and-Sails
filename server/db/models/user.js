@@ -4,33 +4,24 @@ const db = require('../db')
 
 const User = db.define('user', {
   firstName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    notEmpty: true
+    type: Sequelize.STRING
+    // notEmpty: true
   },
   lastName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    notEmpty: true
+    type: Sequelize.STRING
+    // notEmpty: true
   },
-  fullName: {
-    type: Sequelize.VIRTUAL,
-    get() {
-      return (
-        this.getDataValue('firstName') + ' ' + this.getDataValue('lastName')
-      )
-    }
-  },
-  userName: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    notEmpty: true,
-    unique: true
-  },
+  // fullName: {
+  //   type: Sequelize.VIRTUAL,
+  //   get() {
+  //     return (
+  //       this.getDataValue('firstName') + ' ' + this.getDataValue('lastName')
+  //     )
+  //   }
+  // },
   address: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    notEmpty: true
+    type: Sequelize.STRING
+    // notEmpty: true
   },
   email: {
     type: Sequelize.STRING,
@@ -101,10 +92,10 @@ User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
 
-User.beforeCreate(user => {
-  const nameFirst = user.firstName
-  const nameLast = user.lastName
+// User.beforeCreate(user => {
+//   const nameFirst = user.firstName
+//   const nameLast = user.lastName
 
-  user.firstName = nameFirst[0].toUpperCase() + nameFirst.slice(1)
-  user.lastName = nameLast[0].toUpperCase() + nameLast.slice(1)
-})
+//   user.firstName = nameFirst[0].toUpperCase() + nameFirst.slice(1)
+//   user.lastName = nameLast[0].toUpperCase() + nameLast.slice(1)
+// })
