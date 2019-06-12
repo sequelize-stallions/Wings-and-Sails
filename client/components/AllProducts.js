@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {thunkGetProducts} from '../store'
 
 class AllProductsDisconnect extends Component {
@@ -25,7 +25,11 @@ class AllProductsDisconnect extends Component {
                     alt={product.name}
                   />
                 </Link>
-                <h3>${product.price}</h3>
+                <h3>
+                  ${product.price
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                </h3>
                 <h4>{product.description}</h4>
                 <hr />
               </div>
