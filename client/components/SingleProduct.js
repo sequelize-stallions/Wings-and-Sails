@@ -12,15 +12,19 @@ class SingleProductDisconnect extends Component {
   render() {
     const {product} = this.props
 
-    return (
+    return product.name ? (
       <div id="singleProduct">
         <h1>{product.name}</h1>
         <img src={product.imgUrl} alt={product.name} />
         <p>{product.description}</p>
-        <h3>{product.price}</h3>
+        <h3>{`$${product.price
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}</h3>
         <p>Remaining in Stock: {product.stock}</p>
         <button type="button">Add To Cart</button>
       </div>
+    ) : (
+      <p>Page Loading</p>
     )
   }
 }
