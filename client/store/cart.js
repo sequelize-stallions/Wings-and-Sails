@@ -10,6 +10,7 @@ const CHECK_CART = 'CHECK_CART'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 const CLEAR_CART = 'CLEAR_CART'
+const CHECKOUT_CART = 'CHECKOUT_CART'
 
 const getCart = cart => {
   return {
@@ -33,6 +34,12 @@ const removeProduct = id => {
   return {
     type: REMOVE_PRODUCT,
     id
+  }
+}
+
+const checkoutCart = () => {
+  return {
+    type: CHECKOUT_CART
   }
 }
 
@@ -86,6 +93,18 @@ export const thunkRemoveProduct = id => {
     }
   }
 }
+
+export const thunkCheckoutCart = id => {
+  return async dispatch => {
+    try {
+      await axios.put(`/api/carts/${id}`)
+      dispatch(checkoutCart())
+    } catch (error) {
+      console.log('Failed to Checkout')
+    }
+  }
+}
+
 export default function(state = initialCart, action) {
   switch (action.type) {
     case GET_CART:
@@ -112,6 +131,8 @@ export default function(state = initialCart, action) {
         }
       }
     case CLEAR_CART:
+      return initialCart
+    case CHECKOUT_CART:
       return initialCart
     default:
       return state

@@ -27,7 +27,6 @@ router.post('/', async (req, res, next) => {
         orderStatus: false
       }
     })
-    console.log('I FIRE!!!')
   } catch (error) {
     next(error)
   }
@@ -73,5 +72,23 @@ router.delete('/removeProd/:id', async (req, res, next) => {
     res.sendStatus(204)
   } catch (err) {
     next(err)
+  }
+})
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    await Cart.update(
+      {
+        orderStatus: true
+      },
+      {
+        where: {
+          id: req.params.id
+        }
+      }
+    )
+    res.sendStatus(200)
+  } catch (error) {
+    next(error)
   }
 })
