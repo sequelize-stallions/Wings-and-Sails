@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {thunkGetCart, thunkRemoveProduct} from '../store'
+import {thunkCheckoutCart, thunkGetCart, thunkRemoveProduct} from '../store'
 
 export class CartDisconnected extends Component {
   constructor(props) {
@@ -12,9 +12,14 @@ export class CartDisconnected extends Component {
     this.props.getCart()
   }
 
-  handleClick(id) {
+  handleRemove(id) {
     this.props.removeProd(id)
   }
+
+  handleCheckout(id) {
+    this.props.checkout(id)
+  }
+
   render() {
     if (!this.props.cart.products) {
       return (
@@ -70,7 +75,7 @@ export class CartDisconnected extends Component {
                     <td>
                       <button
                         type="button"
-                        onClick={() => this.handleClick(product.id)}
+                        onClick={() => this.handleRemove(product.id)}
                       >
                         X
                       </button>
@@ -80,6 +85,12 @@ export class CartDisconnected extends Component {
               })}
             </tbody>
           </table>
+          <button
+            type="button"
+            onClick={() => this.handleCheckout(this.props.cart.id)}
+          >
+            Checkout
+          </button>
         </div>
       )
     }
@@ -92,7 +103,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getCart: () => dispatch(thunkGetCart()),
-  removeProd: id => dispatch(thunkRemoveProduct(id))
+  removeProd: id => dispatch(thunkRemoveProduct(id)),
+  checkout: id => dispatch(thunkCheckoutCart(id))
 })
 
 export const Cart = connect(mapStateToProps, mapDispatchToProps)(
