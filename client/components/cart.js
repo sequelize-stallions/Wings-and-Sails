@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {thunkGetCart} from '../store'
+import {thunkGetCart, thunkRemoveProduct} from '../store'
 
 export class CartDisconnected extends Component {
   constructor(props) {
@@ -12,8 +12,11 @@ export class CartDisconnected extends Component {
     this.props.getCart()
   }
 
+  handleClick(id) {
+    this.props.removeProd(id)
+  }
   render() {
-    if (!this.props.cart) {
+    if (!this.props.cart.products) {
       return (
         <div>
           <h1>Your cart is currently empty</h1>
@@ -31,8 +34,8 @@ export class CartDisconnected extends Component {
                 <td>
                   <Link to="/products">Your Next Favorite Toy</Link>
                 </td>
-                <td>5</td>
-                <td>5000000</td>
+                <td />
+                <td />
                 <td>
                   <button type="button">X</button>
                 </td>
@@ -48,23 +51,33 @@ export class CartDisconnected extends Component {
           <table>
             <tbody>
               <tr>
-                <th />
                 <th>Item</th>
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Remove</th>
               </tr>
-              <tr>
-                <td>1</td>
-                <td>
-                  <Link to="/products">Your Next Favorite Toy</Link>
-                </td>
-                <td>5</td>
-                <td>5000000</td>
-                <td>
-                  <button type="button">X</button>
-                </td>
-              </tr>
+              {this.props.cart.products.map((product, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{product.name}</td>
+                    <td>{product.productCart.quantity}</td>
+                    <td>
+                      ${' '}
+                      {product.price
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onClick={() => this.handleClick(product.id)}
+                      >
+                        X
+                      </button>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>
@@ -78,7 +91,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getCart: () => dispatch(thunkGetCart())
+  getCart: () => dispatch(thunkGetCart()),
+  removeProd: id => dispatch(thunkRemoveProduct(id))
 })
 
 export const Cart = connect(mapStateToProps, mapDispatchToProps)(

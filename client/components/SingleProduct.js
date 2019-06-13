@@ -1,12 +1,29 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {thunkGetSingleProduct} from '../store'
+import {thunkAddProduct, thunkGetSingleProduct} from '../store'
 
 class SingleProductDisconnect extends Component {
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
+
   componentDidMount() {
     const {match, getSingleProduct} = this.props
 
     getSingleProduct(match.params.id)
+  }
+
+  handleClick() {
+    console.log(this.props.cart.id)
+
+    const product = {
+      productId: this.props.product.id,
+      cartId: this.props.cart.id,
+      price: this.props.product.price
+    }
+
+    this.props.addProduct(product)
   }
 
   render() {
@@ -21,7 +38,9 @@ class SingleProductDisconnect extends Component {
           .toString()
           .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`}</h3>
         <p>Remaining in Stock: {product.stock}</p>
-        <button type="button">Add To Cart</button>
+        <button type="button" onClick={this.handleClick}>
+          Add To Cart
+        </button>
       </div>
     ) : (
       <p>Page Loading</p>
@@ -30,11 +49,13 @@ class SingleProductDisconnect extends Component {
 }
 
 const mapStateToProps = state => ({
-  product: state.products.selectedProduct
+  product: state.products.selectedProduct,
+  cart: state.cart.cart
 })
 
 const mapDispatchToProps = dispatch => ({
-  getSingleProduct: id => dispatch(thunkGetSingleProduct(id))
+  getSingleProduct: id => dispatch(thunkGetSingleProduct(id)),
+  addProduct: product => dispatch(thunkAddProduct(product))
 })
 
 export const SingleProduct = connect(mapStateToProps, mapDispatchToProps)(
