@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import mapStateToProps from 'react-redux/es/connect/mapStateToProps'
 import {thunkCheckCart, thunkGetCart} from '../store'
 
 /**
