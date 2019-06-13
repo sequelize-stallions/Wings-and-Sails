@@ -13,7 +13,7 @@ export class CartDisconnected extends Component {
   }
 
   render() {
-    if (!this.props.cart) {
+    if (!this.props.cart.id) {
       return (
         <div>
           <h1>Your cart is currently empty</h1>
@@ -48,23 +48,28 @@ export class CartDisconnected extends Component {
           <table>
             <tbody>
               <tr>
-                <th />
                 <th>Item</th>
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Remove</th>
               </tr>
-              <tr>
-                <td>1</td>
-                <td>
-                  <Link to="/products">Your Next Favorite Toy</Link>
-                </td>
-                <td>5</td>
-                <td>5000000</td>
-                <td>
-                  <button type="button">X</button>
-                </td>
-              </tr>
+              {this.props.cart.products.map((product, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{product.name}</td>
+                    <td>{product.productCart.quantity}</td>
+                    <td>
+                      ${' '}
+                      {product.price
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    </td>
+                    <td>
+                      <button type="button">X</button>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>
