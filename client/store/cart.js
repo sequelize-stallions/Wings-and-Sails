@@ -9,6 +9,7 @@ const GET_CART = 'GET_CART'
 const CHECK_CART = 'CHECK_CART'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
+const CLEAR_CART = 'CLEAR_CART'
 
 const getCart = cart => {
   return {
@@ -32,6 +33,12 @@ const removeProduct = id => {
   return {
     type: REMOVE_PRODUCT,
     id
+  }
+}
+
+export const clearCart = () => {
+  return {
+    type: CLEAR_CART
   }
 }
 
@@ -104,6 +111,8 @@ export default function(state = initialCart, action) {
           )
         }
       }
+    case CLEAR_CART:
+      return initialCart
     default:
       return state
   }
