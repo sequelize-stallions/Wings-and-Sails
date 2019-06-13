@@ -7,6 +7,7 @@ const initialCart = {
 //get all products
 const GET_CART = 'GET_CART'
 const CHECK_CART = 'CHECK_CART'
+const ADD_PRODUCT = 'ADD_PRODUCT'
 
 const getCart = cart => {
   return {
@@ -18,6 +19,11 @@ const getCart = cart => {
 const checkCart = () => {
   return {
     type: CHECK_CART
+  }
+}
+const addProduct = () => {
+  return {
+    type: ADD_PRODUCT
   }
 }
 
@@ -44,6 +50,17 @@ export const thunkCheckCart = () => {
   }
 }
 
+export const thunkAddProduct = product => {
+  return async dispatch => {
+    try {
+      await axios.post(`/api/carts/addProd`, product)
+      dispatch(addProduct())
+    } catch (err) {
+      console.log('Failed to add product')
+    }
+  }
+}
+
 export default function(state = initialCart, action) {
   switch (action.type) {
     case GET_CART:
@@ -52,6 +69,10 @@ export default function(state = initialCart, action) {
         cart: action.cart
       }
     case CHECK_CART:
+      return {
+        ...state
+      }
+    case ADD_PRODUCT:
       return {
         ...state
       }
