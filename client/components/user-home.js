@@ -1,20 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import Axios from 'axios'
+import mapStateToProps from 'react-redux/es/connect/mapStateToProps'
+import {thunkCheckCart, thunkGetCart} from '../store'
 
 /**
  * COMPONENT
  */
 export class UserHome extends React.Component {
-  async componentDidMount() {
-    try {
-      const data = await Axios.post('/api/carts')
-      // add to localStore
-      console.log(data)
-    } catch (error) {
-      console.log('ERROR!')
-    }
+  componentDidMount() {
+    this.props.checkCart()
+    this.props.getCart()
   }
 
   render() {
@@ -36,7 +32,11 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatchToProps = dispatch => ({
+  checkCart: () => dispatch(thunkCheckCart()),
+  getCart: () => dispatch(thunkGetCart())
+})
+export default connect(mapState, mapDispatchToProps)(UserHome)
 
 /**
  * PROP TYPES
