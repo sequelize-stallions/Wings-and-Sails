@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Cart} = require('../db/models')
+const {Cart, Product} = require('../db/models')
 module.exports = router
 
 function isAuthenticated(req, res, next) {
@@ -21,16 +21,34 @@ router.post('/', async (req, res, next) => {
     next()
   }
   try {
-    const resArr = await Cart.findOrCreate({
+    await Cart.findOrCreate({
       where: {
         userId: req.user.id,
         orderStatus: false
       }
     })
-    const cart = resArr[0]
     console.log('I FIRE!!!')
-    res.json(cart)
   } catch (error) {
     next(error)
+  }
+})
+
+router.get('/', async (req, res, next) => {
+  try {
+    const searchCart = await Cart.findOne({
+      include: [
+        {
+          model: Product,
+          attributes: ['name', 'price', 'imgUrl']
+        }
+      ],
+      where: {
+        userId: req.user.id,
+        orderStatus: false
+      }
+    })
+    if (searchCart) res.status(200).json(searchCart)
+  } catch (err) {
+    next(err)
   }
 })
