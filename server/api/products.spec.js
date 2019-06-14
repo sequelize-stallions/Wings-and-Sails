@@ -12,20 +12,20 @@ describe('Product routes', () => {
   })
 
   describe('/api/products/', () => {
-    const name = 'Learjet 5XR'
-    const description = 'Plating.'
-    const imgUrl =
-      'http://www.businessair.com/sites/businessair.com/files/imagecache/classifieds_large/_mg_2807.jpg'
-    const price = 409000
-    const stock = 6
+    const testName = 'Plain Plane'
+    const testDescription = 'Plating.'
+    const testImgUrl =
+      'https://i.pinimg.com/originals/08/f6/a5/08f6a555b2a46a88d369dde8773d6baf.jpg'
+    const testPrice = 400
+    const testStock = 9
 
     beforeEach(() => {
       return Product.create({
-        name,
-        description,
-        imgUrl,
-        price,
-        stock
+        name: testName,
+        description: testDescription,
+        imgUrl: testImgUrl,
+        price: testPrice,
+        stock: testStock
       })
     })
 
@@ -35,7 +35,7 @@ describe('Product routes', () => {
         .expect(200)
 
       expect(res.body).to.be.an('array')
-      expect(res.body[0].name).to.be.equal(name)
+      expect(res.body[0].name).to.be.equal(testName)
     })
   }) // end describe('/api/product')
 }) // end describe('Product routes')
