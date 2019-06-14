@@ -16,16 +16,31 @@ function isAuthenticated(req, res, next) {
   // res.redirect('/home');
 }
 
+//route for check cart
+// router.post('/', async (req, res, next) => {
+//   if (!req.user) {
+//     next()
+//   }
+//   try {
+//     await Cart.findOrCreate({
+//       where: {
+//         userId: req.user.id,
+//         orderStatus: false
+//       }
+//     })
+//   } catch (error) {
+//     next(error)
+//   }
+// })
+
+//route for create cart
 router.post('/', async (req, res, next) => {
   if (!req.user) {
     next()
   }
   try {
-    await Cart.findOrCreate({
-      where: {
-        userId: req.user.id,
-        orderStatus: false
-      }
+    await Cart.create({
+      userId: req.user.id
     })
   } catch (error) {
     next(error)

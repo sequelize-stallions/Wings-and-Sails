@@ -118,6 +118,21 @@ const products = [
   }
 ]
 
+const carts = [
+  {
+    userId: 1
+  },
+  {
+    userId: 2
+  },
+  {
+    userId: 3
+  },
+  {
+    userId: 4
+  }
+]
+
 const seed = async () => {
   try {
     await db.sync({force: true})
@@ -129,6 +144,11 @@ const seed = async () => {
     await Promise.all(
       products.map(product => {
         return Product.create(product)
+      })
+    )
+    await Promise.all(
+      carts.map(cart => {
+        return Cart.create(cart)
       })
     )
 
