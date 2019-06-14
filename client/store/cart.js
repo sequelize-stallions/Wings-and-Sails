@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const initialCart = {
-  cart: {}
+  cart: {},
+  orders: []
 }
 
 //get all products
@@ -12,6 +13,7 @@ const ADD_PRODUCT = 'ADD_PRODUCT'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 const CLEAR_CART = 'CLEAR_CART'
 const CHECKOUT_CART = 'CHECKOUT_CART'
+const GET_ORDERS = 'GET_ORDERS'
 
 const getCart = cart => {
   return {
@@ -42,6 +44,13 @@ const removeProduct = id => {
   return {
     type: REMOVE_PRODUCT,
     id
+  }
+}
+
+const getOrders = orders => {
+  return {
+    type: GET_ORDERS,
+    orders
   }
 }
 
@@ -124,6 +133,17 @@ export const thunkCheckoutCart = id => {
   }
 }
 
+export const thunkGetOrders = () => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/carts/orders`)
+      dispatch(getOrders(data))
+    } catch (err) {
+      console.log('Failed to load orders!')
+    }
+  }
+}
+
 export default function(state = initialCart, action) {
   switch (action.type) {
     case GET_CART:
@@ -155,6 +175,8 @@ export default function(state = initialCart, action) {
       return {...state}
     case CREATE_CART:
       return {...state}
+    case GET_ORDERS:
+      return {...state, orders: action.orders}
     default:
       return state
   }

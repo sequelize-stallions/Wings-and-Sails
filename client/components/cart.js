@@ -108,7 +108,8 @@ export class CartDisconnected extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart.cart
+  cart: state.cart.cart,
+  orders: state.cart.orders
 })
 
 const mapDispatchToProps = dispatch => ({
