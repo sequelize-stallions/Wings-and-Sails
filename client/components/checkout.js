@@ -1,12 +1,16 @@
 import React from 'react'
-import {Link, Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
+import {thunkCheckCart} from '../store'
 
-export class Checkout extends React.Component {
+export class CheckoutDisconnected extends React.Component {
   state = {
     redirect: false
   }
 
   componentDidMount() {
+    // this.props.checkCart()
+
     setTimeout(() => {
       this.setState({
         redirect: true
@@ -28,3 +32,9 @@ export class Checkout extends React.Component {
     )
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  checkCart: () => dispatch(thunkCheckCart())
+})
+
+export default connect(null, mapDispatchToProps)(CheckoutDisconnected)

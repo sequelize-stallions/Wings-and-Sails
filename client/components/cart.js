@@ -1,7 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {thunkCheckoutCart, thunkGetCart, thunkRemoveProduct} from '../store'
+import {
+  thunkCheckoutCart,
+  thunkCreateCart,
+  thunkGetCart,
+  thunkRemoveProduct
+} from '../store'
 
 export class CartDisconnected extends Component {
   constructor(props) {
@@ -17,7 +22,12 @@ export class CartDisconnected extends Component {
   }
 
   handleCheckout(id) {
+    const {history} = this.props
     this.props.checkout(id)
+    this.props.createCart()
+    this.props.getCart()
+
+    history.push('/checkout')
   }
 
   render() {
@@ -104,7 +114,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getCart: () => dispatch(thunkGetCart()),
   removeProd: id => dispatch(thunkRemoveProduct(id)),
-  checkout: id => dispatch(thunkCheckoutCart(id))
+  checkout: id => dispatch(thunkCheckoutCart(id)),
+  createCart: () => dispatch(thunkCreateCart())
 })
 
 export const Cart = connect(mapStateToProps, mapDispatchToProps)(

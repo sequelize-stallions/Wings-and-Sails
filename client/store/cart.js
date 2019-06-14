@@ -7,6 +7,7 @@ const initialCart = {
 //get all products
 const GET_CART = 'GET_CART'
 const CHECK_CART = 'CHECK_CART'
+const CREATE_CART = 'CREATE_CART'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 const CLEAR_CART = 'CLEAR_CART'
@@ -24,6 +25,13 @@ const checkCart = () => {
     type: CHECK_CART
   }
 }
+
+const createCart = () => {
+  return {
+    type: CREATE_CART
+  }
+}
+
 const addProduct = () => {
   return {
     type: ADD_PRODUCT
@@ -68,6 +76,17 @@ export const thunkCheckCart = () => {
       dispatch(checkCart())
     } catch (err) {
       console.log(err)
+    }
+  }
+}
+
+export const thunkCreateCart = () => {
+  return async dispatch => {
+    try {
+      await axios.post('/api/carts')
+      dispatch(createCart())
+    } catch (error) {
+      console.log('Failed to create cart: ', error)
     }
   }
 }
@@ -133,7 +152,9 @@ export default function(state = initialCart, action) {
     case CLEAR_CART:
       return initialCart
     case CHECKOUT_CART:
-      return initialCart
+      return {...state}
+    case CREATE_CART:
+      return {...state}
     default:
       return state
   }

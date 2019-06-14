@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {connect} from 'react-redux'
 import {thunkCheckCart, thunkGetCart} from '../store'
 
@@ -8,7 +8,7 @@ import {thunkCheckCart, thunkGetCart} from '../store'
  */
 export class UserHome extends React.Component {
   componentDidMount() {
-    this.props.checkCart()
+    // this.props.checkCart()
     this.props.getCart()
   }
 
