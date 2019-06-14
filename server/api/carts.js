@@ -107,3 +107,23 @@ router.put('/:id', async (req, res, next) => {
     next(error)
   }
 })
+
+router.get('/orders', async (req, res, next) => {
+  try {
+    const searchCart = await Cart.findAll({
+      include: [
+        {
+          model: Product,
+          attributes: ['name', 'price', 'imgUrl', 'id']
+        }
+      ],
+      where: {
+        userId: req.user.id,
+        orderStatus: true
+      }
+    })
+    if (searchCart) res.status(200).json(searchCart)
+  } catch (err) {
+    next(err)
+  }
+})
