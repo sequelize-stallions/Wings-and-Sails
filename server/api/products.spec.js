@@ -5,24 +5,25 @@ const request = require('supertest')
 const db = require('../db')
 const app = require('../index')
 const Product = db.model('product')
+const Cart = db.model('cart')
 
 describe('Product routes', () => {
-  beforeEach(async () => {
-    await db.sync({force: true})
+  beforeEach(() => {
+    return db.sync({force: true})
   })
 
-  let storedProducts
+  describe('GET `/api/products/`', () => {
+    let plane1, plane2
 
-  const productData = [
-    {
+    const plane1Data = {
       name: 'Yak-42',
       description: 'Some cool old and expensive plane',
       imgUrl:
         'https://i.pinimg.com/originals/08/f6/a5/08f6a555b2a46a88d369dde8773d6baf.jpg',
       price: 60000000,
       stock: 5
-    },
-    {
+    }
+    const plane2Data = {
       name: 'SSJ-100',
       description: 'Some plane',
       imgUrl:
@@ -30,15 +31,13 @@ describe('Product routes', () => {
       price: 67780000,
       stock: 5
     }
-  ]
 
-  describe('GET `/api/products/`', () => {
     beforeEach(async () => {
-      beforeEach(async () => {
-        await db.sync({force: true})
-      })
-      const createdProducts = await Product.bulkCreate(productData)
-      storedProducts = createdProducts.map(product => product.dataValues)
+      plane1 = await Product.create(plane1Data)
+      plane2 = await Product.create(plane2Data)
+      const myCart = await Cart.create({totalPrice: 777777})
+      await myCart.addProduct(plane1)
+      await myCart.addProduct(plane2)
     })
 
     it('sends all the products', async () => {
@@ -48,7 +47,7 @@ describe('Product routes', () => {
 
       expect(res.body).to.be.an('array')
       expect(res.body).to.have.length(2)
-      expect(res.body[0].name).to.be.equal(storedProducts[0].name)
+      expect(res.body[0].name).to.be.equal(plane1Data.name)
     })
   })
   describe('GET `/api/products/:id`', () => {
