@@ -54,8 +54,6 @@ describe('Product Cart model', () => {
         cartId: newCart.id
       })
 
-      await newPlane.addCart(newCart)
-
       expect(newOrder.productId).to.equal(newPlane.id)
       expect(newOrder.cartId).to.equal(newCart.id)
     })
