@@ -18,6 +18,7 @@ describe('UserHome', () => {
         email="cody@email.com"
         getCart={() => 'Placeholder for getCart'}
         getOrders={() => 'Placeholder for getOrders'}
+        orders={[]}
       />
     )
   })

@@ -19,7 +19,7 @@ export class UserHome extends React.Component {
     if (this.props.orders.length < 1) {
       return (
         <div>
-          <h3>Welcome,{email}</h3>
+          <h3>Welcome, {email}</h3>
         </div>
       )
     } else {
