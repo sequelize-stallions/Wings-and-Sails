@@ -5,6 +5,8 @@ const initialCart = {
   orders: []
 }
 
+//travis is a huge dick
+
 //get all products
 const GET_CART = 'GET_CART'
 const CHECK_CART = 'CHECK_CART'
