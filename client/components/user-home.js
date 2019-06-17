@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {connect} from 'react-redux'
-import {thunkCheckCart, thunkGetCart, thunkGetOrders} from '../store'
+import {thunkGetCart, thunkGetOrders} from '../store'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -15,10 +16,10 @@ export class UserHome extends React.Component {
 
   render() {
     const {email} = this.props
-    if (!this.props.orders) {
+    if (this.props.orders.length < 1) {
       return (
         <div>
-          <h3>Welcome, {email}</h3>
+          <h3>Welcome,{email}</h3>
         </div>
       )
     } else {
@@ -26,6 +27,17 @@ export class UserHome extends React.Component {
         <div>
           <h3>Welcome, {email}</h3>
           <h4>Your orders: </h4>
+          <ol>
+            {this.props.orders.map((order, index) => {
+              return (
+                <li key={order.id}>
+                  <Link to={`/orders/${order.id}`}>
+                    Date of order: {order.updatedAt.slice(0, 10)}
+                  </Link>
+                </li>
+              )
+            })}
+          </ol>
         </div>
       )
     }
@@ -43,7 +55,6 @@ const mapState = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  checkCart: () => dispatch(thunkCheckCart()),
   getCart: () => dispatch(thunkGetCart()),
   getOrders: () => dispatch(thunkGetOrders())
 })
