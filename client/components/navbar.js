@@ -10,13 +10,15 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import Menu from '@material-ui/core/Menu'
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(1)
   },
   title: {
     flexGrow: 1
@@ -25,10 +27,8 @@ const useStyles = makeStyles(theme => ({
 
 const Navbar = ({handleClick, isLoggedIn}) => {
   const classes = useStyles()
-
   return (
     <div className={classes.root}>
-      <h1>Wings and $ails</h1>
       <AppBar position="static" color="inherit">
         <Toolbar>
           <IconButton
@@ -39,6 +39,7 @@ const Navbar = ({handleClick, isLoggedIn}) => {
           >
             <MenuIcon />
           </IconButton>
+
           <Typography
             variant="h6"
             className={classes.title}
@@ -47,6 +48,10 @@ const Navbar = ({handleClick, isLoggedIn}) => {
           >
             All products
           </Typography>
+          <Typography variant="h2" className={classes.title}>
+            Wings and $ails
+          </Typography>
+
           {/* The navbar will show these links after you log in */}
           {isLoggedIn ? (
             <div>
