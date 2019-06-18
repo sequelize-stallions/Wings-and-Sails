@@ -1,38 +1,134 @@
+import AppBar from '@material-ui/core/AppBar'
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import MenuIcon from '@material-ui/icons/Menu'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {clearCart, logout} from '../store'
+import {clearCart, guestGetCart, logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
-  <div>
-    <h1>Wings and $ails</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/products">All Products</Link>
-          <Link to="/home">Home</Link>
-          <Link to="/cart">Cart</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-          {isAdmin ? <Link to="/admin">Admin</Link> : null}
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/products">All Products</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/home">Home</Link>
-          <Link to="/cart">Cart</Link>
-        </div>
-      )}
-    </nav>
-    <hr />
-  </div>
-)
+const useStyles = {
+  root: {
+    flexGrow: 1
+  },
+  menuButton: {
+    marginRight: 10
+  },
+  title: {
+    flexGrow: 1
+  }
+}
+
+class Navbar extends Component {
+  componentDidMount() {
+    if (!this.props.isLoggedIn) {
+      const localCart = JSON.parse(localStorage.getItem('guestCart'))
+      this.props.getLocalCart(localCart)
+    }
+  }
+
+  render() {
+    const classes = useStyles
+    return (
+      <div style={classes.root}>
+        <AppBar position="static" color="inherit">
+          <Toolbar>
+            <IconButton
+              edge="start"
+              style={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+            >
+              <MenuIcon />
+            </IconButton>
+
+            <Typography
+              variant="h6"
+              style={classes.title}
+              component={Link}
+              to="/products"
+            >
+              All products
+            </Typography>
+            <Typography variant="h2" style={classes.title}>
+              Wings and $ails
+            </Typography>
+            {/* The navbar will show these links after you log in */}
+            {this.props.isLoggedIn ? (
+              <div>
+                <Button
+                  style={classes.menuButton}
+                  component={Link}
+                  to="/home"
+                  variant="contained"
+                  color="inherit"
+                >
+                  Home
+                </Button>
+                <Button
+                  style={classes.menuButton}
+                  component={Link}
+                  to="/cart"
+                  variant="contained"
+                  color="inherit"
+                >
+                  Cart
+                </Button>
+                <Button
+                  style={classes.menuButton}
+                  variant="contained"
+                  color="inherit"
+                  onClick={this.props.handleClick}
+                  component={Link}
+                  to="/logout"
+                >
+                  Logout
+                </Button>
+                {isAdmin ? <Link to="/admin">Admin</Link> : null}
+              </div>
+            ) : (
+              <div>
+                {/* The navbar will show these links before you log in */}
+                <Button
+                  style={classes.menuButton}
+                  component={Link}
+                  to="/guest-cart"
+                  variant="contained"
+                  color="inherit"
+                >
+                  Cart
+                </Button>
+                <Button
+                  style={classes.menuButton}
+                  variant="contained"
+                  color="inherit"
+                  onClick={this.props.handleClick}
+                  component={Link}
+                  to="/login"
+                >
+                  Login
+                </Button>
+                <Button
+                  style={classes.menuButton}
+                  variant="contained"
+                  color="inherit"
+                  component={Link}
+                  to="/signup"
+                >
+                  Sign up
+                </Button>
+              </div>
+            )}
+          </Toolbar>
+        </AppBar>
+        <hr />
+      </div>
+    )
+  }
+}
 
 /**
  * CONTAINER
@@ -49,7 +145,8 @@ const mapDispatch = dispatch => {
     handleClick() {
       dispatch(logout())
       dispatch(clearCart())
-    }
+    },
+    getLocalCart: cart => dispatch(guestGetCart(cart))
   }
 }
 

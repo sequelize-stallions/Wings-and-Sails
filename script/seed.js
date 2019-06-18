@@ -116,6 +116,15 @@ const products = [
       'https://www.fraseryachts.com/yachts-image/sycara-v/Nobiskrug_yacht_for_sale_Sycara-v_7939.jpg',
     price: 67108000,
     stock: 5
+  },
+  {
+    name: 'Boeing 787-8 BBJ',
+    description:
+      'The BBJ designation denotes the business jets based upon the 737 series airliners. These aircraft usually seat between 25 and 50 passengers within a luxurious configuration. This may include a master bedroom, a washroom with showers, a conference/dining area, and a living area. ',
+    imgUrl:
+      'https://amp.businessinsider.com/images/57617b5d52bcd021008c941a-1334-889.jpg',
+    price: 300000000,
+    stock: 1
   }
 ]
 

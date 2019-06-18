@@ -5,28 +5,20 @@ const initialCart = {
   orders: []
 }
 
-//travis is a huge dick
-
 //get all products
 const GET_CART = 'GET_CART'
-const CHECK_CART = 'CHECK_CART'
 const CREATE_CART = 'CREATE_CART'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 const CLEAR_CART = 'CLEAR_CART'
 const CHECKOUT_CART = 'CHECKOUT_CART'
 const GET_ORDERS = 'GET_ORDERS'
+const MERGE_CARTS = 'MERGE_CARTS'
 
 const getCart = cart => {
   return {
     type: GET_CART,
     cart
-  }
-}
-
-const checkCart = () => {
-  return {
-    type: CHECK_CART
   }
 }
 
@@ -68,6 +60,13 @@ export const clearCart = () => {
   }
 }
 
+export const mergeCarts = cart => {
+  return {
+    type: MERGE_CARTS,
+    cart
+  }
+}
+
 export const thunkGetCart = () => {
   return async dispatch => {
     try {
@@ -76,17 +75,6 @@ export const thunkGetCart = () => {
       dispatch(getCart(data))
     } catch (error) {
       console.log('Can not get your cart!')
-    }
-  }
-}
-
-export const thunkCheckCart = () => {
-  return async dispatch => {
-    try {
-      await axios.post('/api/carts')
-      dispatch(checkCart())
-    } catch (err) {
-      console.log(err)
     }
   }
 }
@@ -146,16 +134,28 @@ export const thunkGetOrders = () => {
   }
 }
 
+export const thunkMergeCarts = (products, cartId) => {
+  return async dispatch => {
+    try {
+      const body = {
+        products,
+        cartId
+      }
+      await axios.post('/api/carts/merge', body)
+      const {data} = await axios.get('/api/carts')
+      dispatch(mergeCarts(data))
+    } catch (error) {
+      console.log('Failed to merge carts!')
+    }
+  }
+}
+
 export default function(state = initialCart, action) {
   switch (action.type) {
     case GET_CART:
       return {
         ...state,
         cart: action.cart
-      }
-    case CHECK_CART:
-      return {
-        ...state
       }
     case ADD_PRODUCT:
       return {
@@ -177,6 +177,8 @@ export default function(state = initialCart, action) {
       return {...state}
     case CREATE_CART:
       return {...state}
+    case MERGE_CARTS:
+      return {...state, cart: action.cart}
     case GET_ORDERS:
       return {...state, orders: action.orders}
     default:
