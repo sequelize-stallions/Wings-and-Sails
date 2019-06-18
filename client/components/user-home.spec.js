@@ -19,6 +19,7 @@ describe('UserHome', () => {
         getCart={() => 'Placeholder for getCart'}
         getOrders={() => 'Placeholder for getOrders'}
         orders={[]}
+        mergeCarts={() => 'Placeholder for mergeCarts'}
       />
     )
   })
