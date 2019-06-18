@@ -10,29 +10,39 @@
 //Deletion will be an 'X' button to delete the product on page.
 
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import axios from 'axios'
 
 //will we need a thunk to get all products and users?
 //link to all users and products?
 
-import {thunkGetUsers} from '../store'
+import {thunkGetUsers, me} from '../store'
 
 /**
  * COMPONENT
  */
-export class Admin extends React.Component {
-  componentDidMount() {
+export class Admin extends Component {
+  constructor() {
+    super()
+    this.state = {
+      users: []
+    }
+  }
+  async componentDidMount() {
     // this.props.getUsers()
+    // this.props.me()
+    const {data} = await axios.get('/api/users')
+    this.setState({users: data})
   }
 
   render() {
-    console.log(this.props.users, 'does this exist?')
-    if (this.props.users) {
+    console.log(this.state, 'does this exist?')
+    if (this.state.users) {
       return (
         <div>
-          {this.props.users.map(user => {
+          {this.state.users.map(user => {
             return (
               <div key={user.id}>
                 <hr />
@@ -63,13 +73,17 @@ export class Admin extends React.Component {
  */
 const mapState = state => {
   return {
-    users: state.user.users
+    users: state.user.users,
+    me: state.user.me
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  getUsers: () => dispatch(thunkGetUsers())
-})
+const mapDispatchToProps = dispatch => {
+  return {
+    getUsers: () => dispatch(thunkGetUsers()),
+    me: () => dispatch(me())
+  }
+}
 export default connect(mapState, mapDispatchToProps)(Admin)
 
 /**
