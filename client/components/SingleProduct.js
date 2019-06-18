@@ -76,9 +76,6 @@ class SingleProductDisconnect extends Component {
               </Typography>
               <CardActions>
                 <AddShoppingCartIcon onClick={this.handleClick} />
-                <Button size="small" color="primary" onClick={this.handleClick}>
-                  Add to cart
-                </Button>
               </CardActions>
             </CardContent>
           </CardActionArea>

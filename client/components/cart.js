@@ -104,8 +104,13 @@ export class CartDisconnected extends Component {
           <Paper style={useStyles.paper}>
             {this.props.cart.products.map((product, index) => {
               return (
-                <Grid container spacing={5} style={{margin: 1}}>
-                  <Grid item key={product.name}>
+                <Grid
+                  container
+                  spacing={5}
+                  style={{margin: 1}}
+                  key={product.name}
+                >
+                  <Grid item>
                     <ButtonBase style={useStyles.image}>
                       <img
                         style={useStyles.img}
