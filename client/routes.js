@@ -9,6 +9,7 @@ import {Cart} from './components/cart'
 import {me} from './store'
 import {Checkout} from './components/checkout'
 import {Order} from './components/Order'
+import Container from '@material-ui/core/Container'
 /**
  * COMPONENT
  */
@@ -21,25 +22,27 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
-      <Switch>
-        {/* Routes placed here are available to all visitors */}
-        <Route exact path="/products" component={AllProducts} />
-        <Route path="/products/:id" component={SingleProduct} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route exact path="/cart" component={Cart} />
+      <Container>
+        <Switch>
+          {/* Routes placed here are available to all visitors */}
+          <Route exact path="/products" component={AllProducts} />
+          <Route path="/products/:id" component={SingleProduct} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route exact path="/cart" component={Cart} />
 
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-            <Route path="/checkout" component={Checkout} />
-            <Route path="/orders/:id" component={Order} />
-          </Switch>
-        )}
-        {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
-      </Switch>
+          {isLoggedIn && (
+            <Switch>
+              {/* Routes placed here are only available after logging in */}
+              <Route path="/home" component={UserHome} />
+              <Route path="/checkout" component={Checkout} />
+              <Route path="/orders/:id" component={Order} />
+            </Switch>
+          )}
+          {/* Displays our Login component as a fallback */}
+          <Route component={Login} />
+        </Switch>
+      </Container>
     )
   }
 }

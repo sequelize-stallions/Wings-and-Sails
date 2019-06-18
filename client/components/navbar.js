@@ -39,15 +39,16 @@ const Navbar = ({handleClick, isLoggedIn}) => {
           >
             <MenuIcon />
           </IconButton>
-
-          <Typography
-            variant="h6"
-            className={classes.title}
+          <Button
+            className={classes.menuButton}
             component={Link}
             to="/products"
+            variant="contained"
+            color="inherit"
           >
             All products
-          </Typography>
+          </Button>
+
           <Typography variant="h2" className={classes.title}>
             Wings and $ails
           </Typography>
