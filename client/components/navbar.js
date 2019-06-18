@@ -32,6 +32,7 @@ class Navbar extends Component {
 
   render() {
     const classes = useStyles
+    const {isAdmin} = this.props
     return (
       <div style={classes.root}>
         <AppBar position="static" color="inherit">
@@ -87,6 +88,7 @@ class Navbar extends Component {
                 >
                   Logout
                 </Button>
+                {isAdmin ? <Link to="/admin">Admin</Link> : null}
               </div>
             ) : (
               <div>
@@ -133,7 +135,8 @@ class Navbar extends Component {
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.admin
   }
 }
 

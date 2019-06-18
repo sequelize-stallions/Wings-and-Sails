@@ -8,7 +8,8 @@ const users = [
     userName: 'unicornLover3000',
     address: '123 Candycane Street',
     email: 'unicorns@unicorns.com',
-    password: 'horsesrule'
+    password: 'horsesrule',
+    admin: true
   },
   {
     firstName: 'Noah',
