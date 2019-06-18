@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import store from '../store'
 import {connect} from 'react-redux'
+import axios from 'axios'
 // import { postingStudent, gettingStudents } from '../reducers'
 
 export class UserForm extends Component {
@@ -9,9 +10,9 @@ export class UserForm extends Component {
     this.state = {
       firstName: '',
       lastName: '',
+      address: '',
       email: '',
       password: '',
-      address: '',
       admin: false
     }
     this.handleChange = this.handleChange.bind(this)
@@ -25,8 +26,13 @@ export class UserForm extends Component {
   }
 
   async handleSubmit(event) {
-    event.preventDefault()
     console.log(this.state)
+    event.preventDefault()
+    try {
+      await axios.put(`/api/users/${this.props.match.params.id}`, this.state)
+    } catch (error) {
+      console.log(error)
+    }
     // try {
     //     await store.dispatch(postingStudent(this.state));
     //     await store.dispatch(gettingStudents())
@@ -36,6 +42,7 @@ export class UserForm extends Component {
   }
 
   render() {
+    console.log(this.props.match.params.id)
     return (
       <form id="user-form" onSubmit={this.handleSubmit}>
         <h3>Update a user!</h3>

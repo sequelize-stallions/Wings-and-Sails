@@ -41,6 +41,7 @@ class Routes extends Component {
               <Switch>
                 <Route path="/admin" component={Admin} />
                 <Route path="/user/:id" component={UserForm} />
+                {/* <Route path="/product/:id" component={ProductForm} /> */}
               </Switch>
             )}
           </Switch>
