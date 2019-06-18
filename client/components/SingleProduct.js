@@ -33,8 +33,6 @@ class SingleProductDisconnect extends Component {
   }
 
   handleClick() {
-    console.log(this.props.cart.id)
-
     const product = {
       productId: this.props.product.id,
       cartId: this.props.cart.id,
@@ -49,7 +47,13 @@ class SingleProductDisconnect extends Component {
 
     return product.name ? (
       <div id="singleProduct">
-        <Card>
+        <Card
+          style={{
+            width: '50%',
+            alignItems: 'center',
+            border: 1
+          }}
+        >
           <CardActionArea>
             <CardMedia
               component="img"
