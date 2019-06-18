@@ -13,8 +13,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-//Import the user component into admin
-import {UserHome} from './user-home'
 
 //will we need a thunk to get all products and users?
 //link to all users and products?
@@ -45,7 +43,6 @@ export class Admin extends React.Component {
                 <h4>{user.password}</h4>
                 <h4>{user.address}</h4>
                 <hr />
-                <UserHome />
               </div>
             )
           })}
@@ -78,6 +75,6 @@ export default connect(mapState, mapDispatchToProps)(Admin)
 /**
  * PROP TYPES
  */
-UserHome.propTypes = {
-  email: PropTypes.string
+Admin.propTypes = {
+  users: PropTypes.string
 }
