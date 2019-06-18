@@ -2,39 +2,81 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {thunkGetProducts} from '../store'
+import {makeStyles} from '@material-ui/core/styles'
+import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
+import GridListTileBar from '@material-ui/core/GridListTileBar'
+import ListSubheader from '@material-ui/core/ListSubheader'
+import IconButton from '@material-ui/core/IconButton'
+import InfoIcon from '@material-ui/icons/Info'
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
+
+const useStyles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden'
+  },
+  n: {
+    color: 'white'
+  }
+}
 
 class AllProductsDisconnect extends Component {
   componentDidMount() {
     this.props.getProducts()
   }
   render() {
+    console.log(useStyles.icon)
     if (this.props.products) {
       return (
-        <div>
-          {this.props.products.map(product => {
-            return (
-              <div key={product.id}>
-                <hr />
-                <Link to={`/products/${product.id}`}>
-                  <h3>{product.name}</h3>
-                </Link>
-                <Link to={`/products/${product.id}`}>
-                  <img
-                    src={product.imgUrl}
-                    style={{height: 200, width: 200}}
-                    alt={product.name}
+        <div className={useStyles.root}>
+          <GridList cellHeight={300}>
+            <GridListTile key="Subheader" cols={2} style={{height: 'auto'}}>
+              <ListSubheader component="div">All products</ListSubheader>
+            </GridListTile>
+
+            {this.props.products.map(product => {
+              return (
+                <GridListTile key={product.id}>
+                  <img src={product.imgUrl} alt={product.name} />
+                  <GridListTileBar
+                    title={
+                      <Link
+                        to={`/products/${product.id}`}
+                        style={{color: '#FFF'}}
+                      >
+                        {product.name}
+                      </Link>
+                    }
+                    subtitle={
+                      <span>
+                        Price: ${' '}
+                        {product.price
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      </span>
+                    }
+                    actionIcon={
+                      <IconButton
+                        aria-label={`info about ${product.name}`}
+                        color="primary"
+                        size="medium"
+                      >
+                        <Link
+                          to={`/products/${product.id}`}
+                          style={{color: '#FFF'}}
+                        >
+                          <AddShoppingCartIcon />
+                        </Link>
+                      </IconButton>
+                    }
                   />
-                </Link>
-                <h3>
-                  ${product.price
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                </h3>
-                <h4>{product.description}</h4>
-                <hr />
-              </div>
-            )
-          })}
+                </GridListTile>
+              )
+            })}
+          </GridList>
         </div>
       )
     } else {
