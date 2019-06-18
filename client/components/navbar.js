@@ -25,7 +25,12 @@ const useStyles = {
 class Navbar extends Component {
   componentDidMount() {
     if (!this.props.isLoggedIn) {
-      const localCart = JSON.parse(localStorage.getItem('guestCart'))
+      let localCart = JSON.parse(localStorage.getItem('guestCart'))
+      if (!localCart.products) {
+        localCart = {
+          products: []
+        }
+      }
       this.props.getLocalCart(localCart)
     }
   }
