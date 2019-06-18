@@ -32,6 +32,7 @@ class Navbar extends Component {
 
   render() {
     const classes = useStyles
+    const {isAdmin} = this.props
     return (
       <div style={classes.root}>
         <AppBar position="static" color="inherit">
