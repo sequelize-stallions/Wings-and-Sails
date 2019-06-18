@@ -40,12 +40,10 @@ class Routes extends Component {
         )}
         {isAdmin && (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
             <Route path="/admin" component={Admin} />
-            {/* <Route path="/checkout" component={Checkout} /> */}
-            {/*<Route path="/products" component={allProducts} />*/}
           </Switch>
         )}
+
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
