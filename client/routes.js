@@ -10,6 +10,7 @@ import {me} from './store'
 import {Checkout} from './components/checkout'
 import {Order} from './components/Order'
 import {Admin} from './components/Admin'
+import {UserForm} from './components/UserForm'
 /**
  * COMPONENT
  */
@@ -36,7 +37,12 @@ class Routes extends Component {
             <Route path="/home" component={UserHome} />
             <Route path="/checkout" component={Checkout} />
             <Route path="/orders/:id" component={Order} />
-            {isAdmin && <Route path="/admin" component={Admin} />}
+            {isAdmin && (
+              <Switch>
+                <Route path="/admin" component={Admin} />
+                <Route path="/user/:id" component={UserForm} />
+              </Switch>
+            )}
           </Switch>
         )}
 

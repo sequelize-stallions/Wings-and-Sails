@@ -42,16 +42,14 @@ export class Admin extends Component {
     if (this.state.users) {
       return (
         <div>
+          <h3>User Info</h3>
           {this.state.users.map(user => {
             return (
               <div key={user.id}>
                 <hr />
-                <Link to={`/users/${user.id}`}>
-                  <h3>{user.fullName}</h3>
+                <Link to={`/user/${user.id}`}>
+                  <h3>Update: {user.fullName}</h3>
                 </Link>
-                <h4>{user.email}</h4>
-                <h4>{user.password}</h4>
-                <h4>{user.address}</h4>
                 <hr />
               </div>
             )
