@@ -51,7 +51,13 @@ class SingleProductDisconnect extends Component {
 
     return product.name ? (
       <div id="singleProduct">
-        <Card>
+        <Card
+          style={{
+            width: '50%',
+            alignItems: 'center',
+            border: 1
+          }}
+        >
           <CardActionArea>
             <CardMedia
               component="img"
@@ -74,9 +80,6 @@ class SingleProductDisconnect extends Component {
               </Typography>
               <CardActions>
                 <AddShoppingCartIcon onClick={this.handleClick} />
-                <Button size="small" color="primary" onClick={this.handleClick}>
-                  Add to cart
-                </Button>
               </CardActions>
             </CardContent>
           </CardActionArea>

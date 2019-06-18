@@ -56,7 +56,6 @@ class Navbar extends Component {
             <Typography variant="h2" style={classes.title}>
               Wings and $ails
             </Typography>
-
             {/* The navbar will show these links after you log in */}
             {this.props.isLoggedIn ? (
               <div>
