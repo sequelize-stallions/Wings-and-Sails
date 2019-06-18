@@ -104,7 +104,6 @@ class Navbar extends Component {
                   style={classes.menuButton}
                   variant="contained"
                   color="inherit"
-                  onClick={this.props.handleClick}
                   component={Link}
                   to="/login"
                 >

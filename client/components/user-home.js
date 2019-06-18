@@ -15,6 +15,12 @@ export class UserHome extends React.Component {
       this.props.mergeCarts(guestCart.products, cart.id)
       this.props.getCart()
     }
+    localStorage.setItem(
+      'guestCart',
+      JSON.stringify({
+        products: []
+      })
+    )
     this.props.getOrders()
   }
 
