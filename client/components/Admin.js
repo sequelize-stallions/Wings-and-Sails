@@ -26,7 +26,7 @@ import {thunkGetUsers} from '../store'
  */
 export class Admin extends React.Component {
   componentDidMount() {
-    this.props.getUsers()
+    // this.props.getUsers()
   }
 
   render() {

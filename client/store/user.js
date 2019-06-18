@@ -11,7 +11,7 @@ const REMOVE_USER = 'REMOVE_USER'
 /**
  * INITIAL STATE
  */
-// const defaultUser = {}
+const defaultUser = {}
 
 const initialUsers = {
   users: [],
@@ -31,7 +31,7 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    dispatch(getUser(res.data || initialUsers.defaultUser))
+    dispatch(getUser(res.data || defaultUser))
   } catch (err) {
     console.error(err)
   }
@@ -77,26 +77,13 @@ export const thunkGetUsers = () => {
 /**
  * REDUCER
  */
-// export default function(state = defaultUser, action) {
-//   switch (action.type) {
-//     case GET_USER:
-//       return action.user
-//     case REMOVE_USER:
-//       return defaultUser
-//     default:
-//       return state
-//   }
-// }
 
 export default function(state = initialUsers, action) {
   switch (action.type) {
     case GET_USER:
-      return {
-        ...state,
-        defaultUser: action.user
-      }
+      return action.user
     case REMOVE_USER:
-      return state.defaultUser
+      return defaultUser
     case GET_USERS:
       return {
         ...state,
