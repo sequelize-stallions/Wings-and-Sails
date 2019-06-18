@@ -25,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 const Navbar = ({handleClick, isLoggedIn}) => {
   const classes = useStyles()
+
   return (
     <div className={classes.root}>
       <h1>Wings and $ails</h1>
