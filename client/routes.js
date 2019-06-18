@@ -4,11 +4,12 @@ import {connect} from 'react-redux'
 import {Route, Switch, withRouter} from 'react-router-dom'
 import {Login, Signup, UserHome} from './components'
 import {AllProducts} from './components/AllProducts'
-import {SingleProduct} from './components/SingleProduct'
 import {Cart} from './components/cart'
-import {me} from './store'
 import {Checkout} from './components/checkout'
+import {GuestCart} from './components/guest-cart'
 import {Order} from './components/Order'
+import {SingleProduct} from './components/SingleProduct'
+import {me} from './store'
 /**
  * COMPONENT
  */
@@ -28,6 +29,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/cart" component={Cart} />
+        <Route path="/guest-cart" component={GuestCart} />
 
         {isLoggedIn && (
           <Switch>
