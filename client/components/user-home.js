@@ -1,16 +1,20 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {connect} from 'react-redux'
-import {thunkGetCart, thunkGetOrders} from '../store'
 import {Link} from 'react-router-dom'
+import {thunkGetCart, thunkGetOrders, thunkMergeCarts} from '../store'
 
 /**
  * COMPONENT
  */
 export class UserHome extends React.Component {
-  componentDidMount() {
-    // this.props.checkCart()
-    this.props.getCart()
+  async componentDidMount() {
+    await this.props.getCart()
+    const {cart, guestCart} = this.props
+    if (guestCart.products.length) {
+      this.props.mergeCarts(guestCart.products, cart.id)
+      this.props.getCart()
+    }
     this.props.getOrders()
   }
 
@@ -50,13 +54,16 @@ export class UserHome extends React.Component {
 const mapState = state => {
   return {
     email: state.user.email,
-    orders: state.cart.orders
+    orders: state.cart.orders,
+    guestCart: state.guestCart,
+    cart: state.cart.cart
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   getCart: () => dispatch(thunkGetCart()),
-  getOrders: () => dispatch(thunkGetOrders())
+  getOrders: () => dispatch(thunkGetOrders()),
+  mergeCarts: (products, cartId) => dispatch(thunkMergeCarts(products, cartId))
 })
 export default connect(mapState, mapDispatchToProps)(UserHome)
 

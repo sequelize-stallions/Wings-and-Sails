@@ -1,15 +1,14 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {thunkAddProduct, thunkGetSingleProduct} from '../store'
-import {makeStyles} from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
-import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {guestAddProduct, thunkAddProduct, thunkGetSingleProduct} from '../store'
 
 const useStyles = {
   card: {
@@ -28,18 +27,23 @@ class SingleProductDisconnect extends Component {
 
   componentDidMount() {
     const {match, getSingleProduct} = this.props
-
     getSingleProduct(match.params.id)
   }
 
-  handleClick() {
-    const product = {
-      productId: this.props.product.id,
-      cartId: this.props.cart.id,
-      price: this.props.product.price
-    }
+  async handleClick() {
+    const {isLoggedIn, product, cart} = this.props
 
-    this.props.addProduct(product)
+    if (isLoggedIn) {
+      const productInstance = {
+        productId: product.id,
+        cartId: cart.id,
+        price: product.price
+      }
+      this.props.addProduct(productInstance)
+    } else {
+      await this.props.guestAddProduct(product)
+      localStorage.setItem('guestCart', JSON.stringify(this.props.guestCart))
+    }
   }
 
   render() {
@@ -89,12 +93,15 @@ class SingleProductDisconnect extends Component {
 
 const mapStateToProps = state => ({
   product: state.products.selectedProduct,
-  cart: state.cart.cart
+  cart: state.cart.cart,
+  isLoggedIn: !!state.user.id,
+  guestCart: state.guestCart
 })
 
 const mapDispatchToProps = dispatch => ({
   getSingleProduct: id => dispatch(thunkGetSingleProduct(id)),
-  addProduct: product => dispatch(thunkAddProduct(product))
+  addProduct: product => dispatch(thunkAddProduct(product)),
+  guestAddProduct: product => dispatch(guestAddProduct(product))
 })
 
 export const SingleProduct = connect(mapStateToProps, mapDispatchToProps)(
