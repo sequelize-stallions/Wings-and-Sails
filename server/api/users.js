@@ -15,3 +15,27 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+//Getting all users
+router.get('/', async (req, res, next) => {
+  try {
+    const users = await User.findAll({
+      //not sure if we need everything,
+      //but we're including just in case
+      attributes: [
+        'id',
+        'firstName',
+        'lastName',
+        'address',
+        'email',
+        'password',
+        // 'salt',
+        // 'googleId',
+        'admin'
+      ]
+    })
+    res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})
