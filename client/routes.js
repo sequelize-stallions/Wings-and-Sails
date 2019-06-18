@@ -36,11 +36,7 @@ class Routes extends Component {
             <Route path="/home" component={UserHome} />
             <Route path="/checkout" component={Checkout} />
             <Route path="/orders/:id" component={Order} />
-          </Switch>
-        )}
-        {isAdmin && (
-          <Switch>
-            <Route path="/admin" component={Admin} />
+            {isAdmin && <Route path="/admin" component={Admin} />}
           </Switch>
         )}
 

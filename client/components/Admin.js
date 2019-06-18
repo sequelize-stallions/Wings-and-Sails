@@ -19,20 +19,13 @@ import {UserHome} from './user-home'
 //will we need a thunk to get all products and users?
 //link to all users and products?
 
-import {
-  thunkGetUsers,
-  thunkCheckCart,
-  thunkGetCart,
-  thunkGetOrders
-} from '../store'
+import {thunkGetUsers} from '../store'
 
 /**
  * COMPONENT
  */
 export class Admin extends React.Component {
   componentDidMount() {
-    // this.props.getCart()
-    // this.props.getOrders()
     this.props.getUsers()
   }
 
@@ -73,18 +66,14 @@ export class Admin extends React.Component {
  */
 const mapState = state => {
   return {
-    email: state.user.email,
-    orders: state.cart.orders
+    users: state.user.users
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  checkCart: () => dispatch(thunkCheckCart()),
-  getCart: () => dispatch(thunkGetCart()),
-  getOrders: () => dispatch(thunkGetOrders()),
   getUsers: () => dispatch(thunkGetUsers())
 })
-export default connect(mapState, mapDispatchToProps)(UserHome)
+export default connect(mapState, mapDispatchToProps)(Admin)
 
 /**
  * PROP TYPES
