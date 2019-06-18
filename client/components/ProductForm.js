@@ -1,8 +1,5 @@
 import React, {Component} from 'react'
-import store from '../store'
-import {connect} from 'react-redux'
 import axios from 'axios'
-// import { postingStudent, gettingStudents } from '../reducers'
 
 export class ProductForm extends Component {
   constructor(props) {
@@ -25,23 +22,15 @@ export class ProductForm extends Component {
   }
 
   async handleSubmit(event) {
-    console.log(this.state)
     event.preventDefault()
     try {
       await axios.put(`/api/products/${this.props.match.params.id}`, this.state)
     } catch (error) {
       console.log(error)
     }
-    // try {
-    //     await store.dispatch(postingStudent(this.state));
-    //     await store.dispatch(gettingStudents())
-    // } catch (error) {
-    //     console.log(error)
-    // }
   }
 
   render() {
-    console.log(this.props.match.params.id)
     return (
       <form id="product-form" onSubmit={this.handleSubmit}>
         <h3>Update a product!</h3>
@@ -114,14 +103,3 @@ export class ProductForm extends Component {
     )
   }
 }
-
-// const mapStateToProps = (state) => ({
-//     students: state.students
-// })
-
-// const mapDispatchToProps = (dispatch) => ({
-//     postStudent: () => dispatch(postingStudent()),
-//     getStudent: () => dispatch(gettingStudents())
-// })
-
-// export default connect(mapStateToProps, mapDispatchToProps)(UserForm)
