@@ -11,6 +11,7 @@ import {Checkout} from './components/checkout'
 import {Order} from './components/Order'
 import {Admin} from './components/Admin'
 import {UserForm} from './components/UserForm'
+import {ProductForm} from './components/ProductForm'
 /**
  * COMPONENT
  */
@@ -41,7 +42,7 @@ class Routes extends Component {
               <Switch>
                 <Route path="/admin" component={Admin} />
                 <Route path="/user/:id" component={UserForm} />
-                {/* <Route path="/product/:id" component={ProductForm} /> */}
+                <Route path="/product/:id" component={ProductForm} />
               </Switch>
             )}
           </Switch>

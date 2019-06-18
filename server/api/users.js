@@ -43,7 +43,7 @@ router.get('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    const userId = req.params.userId
+    const userId = req.params.id
     const [numberOfUsers, users] = await User.update(
       {
         firstName: req.body.firstName,
