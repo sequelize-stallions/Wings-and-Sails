@@ -26,7 +26,7 @@ class Navbar extends Component {
   componentDidMount() {
     if (!this.props.isLoggedIn) {
       let localCart = JSON.parse(localStorage.getItem('guestCart'))
-      if (!localCart.products) {
+      if (!localCart) {
         localCart = {
           products: []
         }
