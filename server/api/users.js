@@ -6,8 +6,6 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
-      //not sure if we need everything,
-      //but we're including just in case
       attributes: [
         'id',
         'firstName',
@@ -26,14 +24,12 @@ router.get('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const userId = req.params.id
-    const [numberOfUsers, users] = await User.update(
+    const [, users] = await User.update(
       {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         address: req.body.address,
-        email: req.body.email,
-        password: req.body.password,
-        admin: req.body.admin
+        email: req.body.email
       },
       {
         where: {id: userId},

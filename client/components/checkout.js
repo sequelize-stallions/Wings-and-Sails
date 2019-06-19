@@ -6,24 +6,8 @@ import Typography from '@material-ui/core/Typography'
 
 const useStyles = {
   root: {
-    padding: (3, 2)
+    padding: 3
   }
-}
-
-export default function PaperSheet() {
-  return (
-    <div>
-      <Paper className={classes.root}>
-        <Typography variant="h5" component="h3">
-          This is a sheet of paper.
-        </Typography>
-        <Typography component="p">
-          Paper can be used to build surface or other elements for your
-          application.
-        </Typography>
-      </Paper>
-    </div>
-  )
 }
 
 export class Checkout extends React.Component {
@@ -57,7 +41,7 @@ export class Checkout extends React.Component {
             Thank you for shopping with Wings and $ails!
           </Typography>
           <Typography component="h5">
-            You will be redirecting to home page in 3 seconds
+            You will be redirecting to the home page in 3 seconds
           </Typography>
         </Paper>
       </div>

@@ -3,11 +3,11 @@ const db = require('../db')
 
 const Cart = db.define('cart', {
   totalPrice: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     notEmpty: true,
     validate: {
-      min: 0.0
+      min: 0
     },
     defaultValue: 0.0
   },

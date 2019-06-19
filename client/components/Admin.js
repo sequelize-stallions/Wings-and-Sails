@@ -1,12 +1,31 @@
-import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import Paper from '@material-ui/core/Paper'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
 
-/**
- * COMPONENT
- */
+const styles = {
+  root: {
+    width: '100%',
+    maxWidth: 360
+  },
+  paper: {
+    width: '100%',
+    overflowX: 'auto',
+    marginTop: 10
+  },
+  table: {
+    minWidth: 650
+  },
+  button: {
+    width: '100%'
+  }
+}
+
 export class Admin extends Component {
   constructor() {
     super()
@@ -18,15 +37,23 @@ export class Admin extends Component {
     this.handleDeleteProduct = this.handleDeleteProduct.bind(this)
   }
   async componentDidMount() {
-    const {data} = await axios.get('/api/users')
-    const results = await axios.get('/api/products')
-    this.setState({users: data, products: results.data})
+    try {
+      const {data} = await axios.get('/api/users')
+      const results = await axios.get('/api/products')
+      this.setState({users: data, products: results.data})
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   async handleDeleteUser(target) {
-    await axios.delete(`/api/users/${target}`)
-    const {data} = await axios.get('/api/users')
-    this.setState({users: data})
+    try {
+      await axios.delete(`/api/users/${target}`)
+      const {data} = await axios.get('/api/users')
+      this.setState({users: data})
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   async handleDeleteProduct(target) {
@@ -38,64 +65,81 @@ export class Admin extends Component {
   render() {
     if (this.state.users) {
       return (
-        <div>
-          <div>
-            <h3>User Info</h3>
-            {this.state.users.map(user => {
-              return (
-                <div key={user.id}>
-                  <hr />
-                  <Link to={`/user/${user.id}`}>
-                    <h3>Update: {user.fullName}</h3>
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      this.handleDeleteUser(user.id)
-                    }}
-                  >
-                    {' '}
-                    Delete user{' '}
-                  </button>
-                  <hr />
-                </div>
-              )
-            })}
-          </div>
-          <br />
-          <br />
-          <br />
-          <div>
-            <h3>Product Info</h3>
-            {this.state.products.map(product => {
-              return (
-                <div key={product.id}>
-                  <hr />
-                  <Link to={`/product/${product.id}`}>
-                    <h3>Update: {product.name}</h3>
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      this.handleDeleteProduct(product.id)
-                    }}
-                  >
-                    {' '}
-                    Delete product{' '}
-                  </button>
-                  <hr />
-                </div>
-              )
-            })}
-          </div>
-        </div>
+        <Paper style={styles.paper}>
+          <Paper style={styles.paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">Users</TableCell>
+                  <TableCell align="left"> Name </TableCell>
+                  <TableCell align="left">Update</TableCell>
+                  <TableCell align="left">Remove</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.users.map(user => (
+                  <TableRow key={user.id}>
+                    <TableCell />
+                    <TableCell align="left" component="th" scope="row">
+                      {user.fullName}
+                    </TableCell>
+                    <TableCell align="left">
+                      <Link to={`/user/${user.id}`}>Update information</Link>
+                    </TableCell>
+                    <TableCell align="left">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          this.handleDeleteUser(user.id)
+                        }}
+                      >
+                        Delete user
+                      </button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
+          <Paper style={styles.paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">Products</TableCell>
+                  <TableCell align="left">Product</TableCell>
+                  <TableCell align="left">Update</TableCell>
+                  <TableCell align="left">Remove</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.products.map(prod => (
+                  <TableRow key={prod.id}>
+                    <TableCell />
+                    <TableCell align="left" component="th" scope="row">
+                      {prod.name}
+                    </TableCell>
+                    <TableCell align="left">
+                      <Link to={`/product/${prod.id}`}>Update information</Link>
+                    </TableCell>
+                    <TableCell align="left">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          this.handleDeleteProduct(prod.id)
+                        }}
+                      >
+                        Delete user
+                      </button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
+        </Paper>
       )
     } else {
-      return (
-        <div>
-          <h1>The page is loading...</h1>
-        </div>
-      )
+      return <h1>Page is loading</h1>
     }
   }
 }

@@ -45,7 +45,7 @@ describe('Cart model', () => {
 
   describe('User/Cart association', () => {
     // defined in ../server/models/index.js
-    let cart1, cart2, cart3, user1
+    let cart1, user1
 
     beforeEach(async () => {
       await db.sync({force: true})

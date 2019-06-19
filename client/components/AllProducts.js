@@ -16,9 +16,7 @@ const useStyles = {
     justifyContent: 'space-around',
     flexDirection: 'column',
     justify: 'center',
-
     overflow: 'hidden'
-    // alignItems: "center"
   },
   titleBar: {
     background:
@@ -59,7 +57,6 @@ class AllProductsDisconnect extends Component {
               return (
                 <GridListTile key={product.id}>
                   <img src={product.imgUrl} alt={product.name} />
-
                   <GridListTileBar
                     title={
                       <Link

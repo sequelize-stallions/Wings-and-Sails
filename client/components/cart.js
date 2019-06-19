@@ -7,12 +7,12 @@ import {
   thunkGetCart,
   thunkRemoveProduct
 } from '../store'
-import {makeStyles} from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Button from '@material-ui/core/Button'
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
 const useStyles = {
   root: {
@@ -102,7 +102,10 @@ export class CartDisconnected extends Component {
       return (
         <div style={useStyles.root}>
           <Paper style={useStyles.paper}>
-            {this.props.cart.products.map((product, index) => {
+            <Paper style={useStyles.paper} style={{fontSize: 30}}>
+              <AddShoppingCartIcon /> Your cart:
+            </Paper>
+            {this.props.cart.products.map(product => {
               return (
                 <Grid
                   container
