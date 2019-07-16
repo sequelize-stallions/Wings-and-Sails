@@ -1,11 +1,15 @@
-Horse-Puns:
+# Wings and Sails
+
+Wings and Sails is an eCommerce store that sells jet planes and yachts using a full stack of technologies. Using the knowledge we gathered at FullStack Academy, our team of four software engineers built the application using JavaScript, Node, Postgres, Sequelize, Express, React, and Redux.
+
+### Contributors:
 
 - Noah Schefer
-- Xavier Olivares
 - Daphne Clyne
 - Masha Obaturova
+- Xavier Olivares
 
-Tier 1 Tasks
+### Structured Tasks:
 
 1. Write User Model
 2. Write Product Model
