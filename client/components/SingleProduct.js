@@ -1,4 +1,3 @@
-import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardActions from '@material-ui/core/CardActions'
@@ -9,15 +8,6 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {guestAddProduct, thunkAddProduct, thunkGetSingleProduct} from '../store'
-
-const useStyles = {
-  card: {
-    maxWidth: 345
-  },
-  media: {
-    height: 140
-  }
-}
 
 class SingleProductDisconnect extends Component {
   constructor() {

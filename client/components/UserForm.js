@@ -8,9 +8,7 @@ export class UserForm extends Component {
       firstName: '',
       lastName: '',
       address: '',
-      email: '',
-      password: '',
-      admin: false
+      email: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -75,19 +73,6 @@ export class UserForm extends Component {
         />
         <br />
         <br />
-        <label htmlFor="password">
-          Password:{' '}
-          <span>{this.state.password ? '' : 'this field is required!'}</span>
-        </label>
-        <br />
-        <input
-          name="password"
-          type="text"
-          onChange={this.handleChange}
-          value={this.password}
-        />
-        <br />
-        <br />
         <label htmlFor="address">
           Address:{' '}
           <span>{this.state.address ? '' : 'this field is required!'}</span>
@@ -98,21 +83,6 @@ export class UserForm extends Component {
           type="text"
           onChange={this.handleChange}
           value={this.address}
-        />
-        <br />
-        <br />
-        <label htmlFor="admin">
-          Admin:{' '}
-          <span>
-            {this.state.admin ? '' : 'required, type in true or false!'}
-          </span>
-        </label>
-        <br />
-        <input
-          name="admin"
-          type="text"
-          onChange={this.handleChange}
-          value={this.admin}
         />
         <br />
         <br />

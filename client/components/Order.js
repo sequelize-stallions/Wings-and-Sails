@@ -31,14 +31,11 @@ class OrderDisconnected extends Component {
     const {orders, match} = this.props
     const orderId = match.params.id
     const order = orders.find(element => element.id === +orderId)
-    console.log(order)
-
     let total = 0
     order.products.forEach(function(prod) {
       total += prod.price
     })
-    // Total price of the order # {order.id}: ${' '}
-    // {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+
     return (
       <div style={useStyles.root}>
         <Paper style={useStyles.paper}>

@@ -50,15 +50,15 @@ class Navbar extends Component {
             >
               <MenuIcon />
             </IconButton>
-
-            <Typography
-              variant="h6"
-              style={classes.title}
+            <Button
+              style={classes.menuButton}
               component={Link}
               to="/products"
+              variant="contained"
+              color="inherit"
             >
               All products
-            </Typography>
+            </Button>
             <Typography variant="h2" style={classes.title}>
               Wings and $ails
             </Typography>
@@ -93,7 +93,17 @@ class Navbar extends Component {
                 >
                   Logout
                 </Button>
-                {isAdmin ? <Link to="/admin">Admin</Link> : null}
+                {isAdmin ? (
+                  <Button
+                    style={classes.menuButton}
+                    variant="contained"
+                    color="inherit"
+                    component={Link}
+                    to="/admin"
+                  >
+                    Admin page
+                  </Button>
+                ) : null}
               </div>
             ) : (
               <div>

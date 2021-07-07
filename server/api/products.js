@@ -32,7 +32,7 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const productId = req.params.id
-    const [numberOfProducts, products] = await Product.update(
+    const [, products] = await Product.update(
       {
         name: req.body.name,
         price: req.body.price,
